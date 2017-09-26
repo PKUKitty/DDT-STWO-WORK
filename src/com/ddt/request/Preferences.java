@@ -6,8 +6,7 @@ import com.ddt.common.CarrierCode;
 
 import java.util.HashSet;
 
-enum AllowedStops
-{
+enum AllowedStops {
     ZERO(0),
     ONE(1),
     TWO(2),
@@ -25,7 +24,7 @@ public class Preferences {
     boolean changeable;
     boolean refundable;
     boolean upgradable;
-    //cabins::CabinSet cabinCodes;
+    HashSet<Cabin> cabinCodes;
     HashSet<BrandNameCode> brandNames;
     boolean isVirtualCabin;
     Cabin requestSpecifiedCabin;

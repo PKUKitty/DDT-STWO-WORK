@@ -7,6 +7,7 @@ import com.ddt.utils.Serialize;
 import redis.clients.jedis.Jedis;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static com.ddt.location.LocationType.*;

@@ -8,27 +8,29 @@ public class Timer {
 
     private long m_end;
 
-    public Timer() {
-        start();
+    public Timer(boolean immediateStart) {
+        if (immediateStart) {
+            start();
+        }
     }
 
     public void start() {
         m_end = m_start = System.nanoTime();
     }
 
-    public void stop(){
+    public void stop() {
         m_end = System.nanoTime();
     }
 
-    public double getNseconds(){
+    public double getNseconds() {
         return m_end - m_start;
     }
 
-    public double getSeconds(){
+    public double getSeconds() {
         return (getNseconds() / SECOND_IN_NS);
     }
 
-    public double getSecondsAndContinue(){
+    public double getSecondsAndContinue() {
         return (System.nanoTime() - m_start) / SECOND_IN_NS;
     }
 }

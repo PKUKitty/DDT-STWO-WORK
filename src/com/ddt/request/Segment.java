@@ -1,9 +1,10 @@
 package com.ddt.request;
 
 import com.ddt.location.Location;
+import com.ddt.utils.Date;
+import com.ddt.utils.Time;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Segment {
     public int id;
@@ -14,13 +15,13 @@ public class Segment {
 
     public Date departureDate;
 
-    public Date departAfterTime;
+    public Time departAfterTime;
 
-    public Date departBeforeTime;
+    public Time departBeforeTime;
 
     public FlexInterval flexInterval;
 
-//  public Preferences preferences;
+    public Preferences preferences;
 
     public ArrayList<ConnectionLocation> connectionLocations;
 
@@ -28,8 +29,8 @@ public class Segment {
 
     public Segment() {
         this.id = 0;
-        this.departAfterTime = new Date(2017, 1, 1, 0, 0, 0);
-        this.departBeforeTime = new Date(2017, 1, 1, 23, 59, 59);
+        this.departAfterTime = new Time(0, 0, 0);
+        this.departBeforeTime = new Time(59, 59, 23);
         this.request = null;
     }
 

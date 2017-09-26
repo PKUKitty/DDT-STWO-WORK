@@ -3,81 +3,82 @@ package com.ddt.utils;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-class DatabasesIndexElement {
-
-    /**
-     * redis server hostname;
-     * eg. HOSTNAME = "cnd.infra.routeplan.tsk";
-     */
-    String hostname;
-
-
-    /**
-     * redis server ip; 127.0.0.1
-     */
-    String ip;
-
-    /**
-     * redis port
-     */
-    int port;
-
-    /**
-     * redis database idx
-     */
-    int idx;
-
-    /**
-     * redis database priority
-     * min: 0, max:10
-     */
-    int priority;
-
-
-    /**
-     * usable info
-     */
-    boolean online;
-
-    /**
-     * priority default value is 10; max
-     *
-     * @param hostname hostname name
-     * @param ip       ip
-     * @param port     port
-     * @param idx      index [0-15] depends on redis config
-     */
-    DatabasesIndexElement(final String hostname, final String ip, final int port, final int idx) {
-        this.hostname = hostname;
-        this.ip = ip;
-        this.port = port;
-        this.idx = idx;
-        this.priority = 10;
-        this.online = true;
-    }
-
-    /**
-     * @param hostname hostname
-     * @param ip       ip
-     * @param port     port
-     * @param idx      index    [0-15] depends on redis config
-     * @param priority priority [0,10]
-     */
-    DatabasesIndexElement(final String hostname, final String ip, final int port, final int idx, final int priority) {
-        this.hostname = hostname;
-        this.ip = ip;
-        this.port = port;
-        this.idx = idx;
-        if (priority <= 10 && priority >= 0) {
-            this.priority = priority;
-        } else {
-            this.priority = 10;
-        }
-        this.online = true;
-    }
-}
-
 public class DatabasesIndex {
+
+    static class DatabasesIndexElement {
+
+        /**
+         * redis server hostname;
+         * eg. HOSTNAME = "cnd.infra.routeplan.tsk";
+         */
+        String hostname;
+
+
+        /**
+         * redis server ip; 127.0.0.1
+         */
+        String ip;
+
+        /**
+         * redis port
+         */
+        int port;
+
+        /**
+         * redis database idx
+         */
+        int idx;
+
+        /**
+         * redis database priority
+         * min: 0, max:10
+         */
+        int priority;
+
+
+        /**
+         * usable info
+         */
+        boolean online;
+
+        /**
+         * priority default value is 10; max
+         *
+         * @param hostname hostname name
+         * @param ip       ip
+         * @param port     port
+         * @param idx      index [0-15] depends on redis config
+         */
+        DatabasesIndexElement(final String hostname, final String ip, final int port, final int idx) {
+            this.hostname = hostname;
+            this.ip = ip;
+            this.port = port;
+            this.idx = idx;
+            this.priority = 10;
+            this.online = true;
+        }
+
+        /**
+         * @param hostname hostname
+         * @param ip       ip
+         * @param port     port
+         * @param idx      index    [0-15] depends on redis config
+         * @param priority priority [0,10]
+         */
+        DatabasesIndexElement(final String hostname, final String ip, final int port, final int idx, final int priority) {
+            this.hostname = hostname;
+            this.ip = ip;
+            this.port = port;
+            this.idx = idx;
+            if (priority <= 10 && priority >= 0) {
+                this.priority = priority;
+            } else {
+                this.priority = 10;
+            }
+            this.online = true;
+        }
+    }
+
 
     /**
      * instance

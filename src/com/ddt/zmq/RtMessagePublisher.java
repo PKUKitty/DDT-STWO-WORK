@@ -19,6 +19,6 @@ public class RtMessagePublisher extends RtMessageSender {
             return false;
         }
 
-        return m_buffer.add(msg);
+        return m_buffer.add(msg, timeout);
     }
 }

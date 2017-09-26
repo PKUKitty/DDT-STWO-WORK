@@ -6,39 +6,39 @@ import com.ddt.common.UUID;
 import java.net.Socket;
 import java.util.Base64;
 
-class UuidStore {
-
-    public static final String m_connector = "@";
-    // Timestamp of the connection establishment
-    long m_timeStamp;
-
-    // Client / Server IPs and Ports
-    int m_serverIp = 0;
-    int m_clientIp = 0;
-    short m_serverPort = 0; // MAX VALUE: 32767, general 80;
-    short m_clientPort = 0;
-
-    // Service Process Pid
-    int m_pid;
-
-    // Service Code Version
-    char m_codeVersion;
-    char m_subversion;
-    short m_patch;
-
-    // Request Type
-    char m_requestType;
-
-    public String toString() {
-        return String.valueOf(m_timeStamp) + m_connector + String.valueOf(m_serverIp) + m_connector + String.valueOf(m_clientIp)
-                + m_connector + String.valueOf(m_serverPort) + m_connector + String.valueOf(m_serverPort) + m_connector + String.valueOf(m_pid)
-                + m_connector + String.valueOf(m_codeVersion) + m_connector + String.valueOf(m_subversion) + m_connector + String.valueOf(m_patch)
-                + m_connector + String.valueOf(m_requestType);
-    }
-
-}
-
 public class Uuid {
+
+    static class UuidStore {
+
+        public static final String m_connector = "@";
+        // Timestamp of the connection establishment
+        long m_timeStamp;
+
+        // Client / Server IPs and Ports
+        int m_serverIp = 0;
+        int m_clientIp = 0;
+        short m_serverPort = 0; // MAX VALUE: 32767, general 80;
+        short m_clientPort = 0;
+
+        // Service Process Pid
+        int m_pid;
+
+        // Service Code VersionBranch
+        char m_codeVersion;
+        char m_subversion;
+        short m_patch;
+
+        // Request Type
+        char m_requestType;
+
+        public String toString() {
+            return String.valueOf(m_timeStamp) + m_connector + String.valueOf(m_serverIp) + m_connector + String.valueOf(m_clientIp)
+                    + m_connector + String.valueOf(m_serverPort) + m_connector + String.valueOf(m_serverPort) + m_connector + String.valueOf(m_pid)
+                    + m_connector + String.valueOf(m_codeVersion) + m_connector + String.valueOf(m_subversion) + m_connector + String.valueOf(m_patch)
+                    + m_connector + String.valueOf(m_requestType);
+        }
+
+    }
 
     private UuidStore m_store = new UuidStore();
     private UUID m_encodedUuid;

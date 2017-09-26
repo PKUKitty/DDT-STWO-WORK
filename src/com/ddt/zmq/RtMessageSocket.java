@@ -79,7 +79,7 @@ public abstract class RtMessageSocket extends SimpleThread {
         m_zmqBufferSize = zmqBufferSize;
         m_bind = false;
         m_context = context;
-        m_buffer = new ObjectBuffer((int) bufferSize);
+        m_buffer = new ObjectBuffer<>((int) bufferSize);
         m_totalMessages = 0;
         m_totalRunningTime = 0;
         m_totalSleepTime = 0;
@@ -292,7 +292,7 @@ class RtMessageReceiver extends RtMessageSocket {
                 RtMessage msg = (RtMessage) Serialize.byte2Object(recvBytes);
                 if (null != msg) {
                     msg.addTimestamp(m_context, System.currentTimeMillis());
-                    boolean ret = m_buffer.add(msg);
+                    boolean ret = m_buffer.add(msg, 10);
                     if (!ret) {
                         System.out.println("receive msg append buffer error");
                         return;

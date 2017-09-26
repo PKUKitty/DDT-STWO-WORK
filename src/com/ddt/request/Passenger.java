@@ -1,9 +1,9 @@
 package com.ddt.request;
 
 import com.ddt.location.Location;
+import com.ddt.utils.Date;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Passenger {
 
@@ -21,11 +21,10 @@ public class Passenger {
     boolean isVirtual;
 
     public final int getAgeOn(final Date date) {
-        long diff = date.getTime() - dateOfBirth.getTime();
-        return (int) (diff/(1000 * 60 * 60 * 24 * 365)); //TODO 365
+        return date.calcYearsDifference(dateOfBirth);
     }
 
-    public Passenger(){
+    public Passenger() {
         this.id = 1;
         this.isDateOfBirthSpecified = false;
         this.useDefaultLocation = true;

@@ -9,12 +9,15 @@ import java.util.Arrays;
 public class UtilsTest {
 
     public static void main(String[] args) {
-        testCsvParser();
-        testNetUtil();
-        testSerialize();
-        testSizedString();
-        testTimer();
-        testUuid();
+//        testCsvParser();
+//        testNetUtil();
+//        testSerialize();
+//        testSizedString();
+//        testTimer();
+//        testUuid();
+//        testVersionBranch();
+
+        testDateTime();
     }
 
     private static void testCsvParser() {
@@ -71,7 +74,7 @@ public class UtilsTest {
     }
 
     private static void testTimer() {
-        Timer timer = new Timer();
+        Timer timer = new Timer(true);
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
@@ -79,6 +82,28 @@ public class UtilsTest {
         }
         timer.stop();
         System.out.println("Timer: " + timer.getSeconds());
+    }
+
+    private static void testVersionBranch() {
+        System.out.println("version file: " + VersionBranch.versionFileName);
+        System.out.println("code version: " + VersionBranch.getCodeVersion());
+        System.out.println("sub version: " + VersionBranch.getSubVersion());
+        System.out.println("patch: " + VersionBranch.getPatch());
+        System.out.println("branch: " + VersionBranch.getBranch());
+        System.out.println("branch file: " + VersionBranch.branchFileName);
+    }
+
+    private static void testDateTime() {
+        Date date = Date.createDate(21, 9, 2017);
+        System.out.println("date: " + date.toString());
+
+        String dateStr = "20170921";
+        Date date1 = DateTimeHandler.parseDate(dateStr, DateFormat.YYYYMMDD, 1);
+        System.out.println("parse: " + date1.toString());
+
+        String timeStr = "16:39:21";
+        Time time = DateTimeHandler.parseTime(timeStr, TimeFormat.HHMMSS_COLON);
+        System.out.println("parse time: " + time.toString());
     }
 
 }
