@@ -23,6 +23,19 @@ public class NetUtil {
         return 0;
     }
 
+    /**
+     *  TODO fix it to return host name as 'yujun-E7440'
+     *
+     * @return host name
+     */
+    public static String getHostName(){
+        try {
+            return getLocalHostLANAddress().getHostName();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     /**
      * http://www.cnblogs.com/starcrm/p/7071227.html

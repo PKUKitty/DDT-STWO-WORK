@@ -98,7 +98,7 @@ public class DatabasesIndex {
     /**
      * default hostname
      */
-    private static final String DEFAULT_HOSTNAME = "cnd.infra.routeplan.tsk";
+    private static final String DEFAULT_HOSTNAME = NetUtil.getHostName();
 
     /**
      * default ip
@@ -136,7 +136,7 @@ public class DatabasesIndex {
         dbIndexMap = new HashMap<Databases, ArrayList<DatabasesIndexElement>>();
         //TODO config;
 
-        DatabasesIndexElement element = new DatabasesIndexElement("cnd.infra.routeplan.tsk", "localhost", 6379, 0);
+        DatabasesIndexElement element = new DatabasesIndexElement(DEFAULT_HOSTNAME, "localhost", 6379, 0);
         ArrayList<DatabasesIndexElement> lists = new ArrayList<DatabasesIndexElement>();
         lists.add(element);
         dbIndexMap.put(Databases.ACTIVE_PORT, lists);
