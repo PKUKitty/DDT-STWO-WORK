@@ -43,8 +43,8 @@ public class Location implements Serializable {
     Location aggrZone = null; // pointer to the containing aggregate zone object
     Location area = null; // pointer to the containing area object.
 
-    ArrayList<Location> airports = new ArrayList<>(); // for locations that are cities the array contains all airports in that city
-    ArrayList<Location> cities = new ArrayList<>(); // for locations that are parent cities the array contains all cities for that parent city
+    ArrayList<Location> airports = new ArrayList<Location>(); // for locations that are cities the array contains all airports in that city
+    ArrayList<Location> cities = new ArrayList<Location>(); // for locations that are parent cities the array contains all cities for that parent city
 
     char[] timeZone = new char[TIMEZONE_LENGTH]; // timezone code
 

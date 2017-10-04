@@ -25,10 +25,10 @@ public class RtMessageSocketFactory {
 
     public RtMessageSocketFactory(String statsFilePath, long updateIntervalInSec) {
         this.m_zmqContext = null;
-        this.m_publishers = new HashSet<>();
-        this.m_subscribers = new HashSet<>();
-        this.m_pushers = new HashSet<>();
-        this.m_pullers = new HashSet<>();
+        this.m_publishers = new HashSet<RtMessagePublisher>();
+        this.m_subscribers = new HashSet<RtMessageSubscriber>();
+        this.m_pushers = new HashSet<RtMessagePusher>();
+        this.m_pullers = new HashSet<RtMessagePuller>();
         if ((statsFilePath != null) && (updateIntervalInSec != 0)) {
             m_factoryStats = new FactoryStats(statsFilePath, updateIntervalInSec, this);
         }
@@ -97,7 +97,7 @@ public class RtMessageSocketFactory {
         m_pullers.clear();
 
         try {
-            m_zmqContext.close();
+            m_zmqContext.term(); // TODO close ?
         } catch (ZMQException e) {
             e.printStackTrace();
             System.out.printf("SocketFactory: Error destroying ZeroMQ context");

@@ -49,7 +49,9 @@ public abstract class RabbitMQBase {
             //declaring a queue for this channel. If queue does not exist,
             //it will be created on the server.
             channel.queueDeclare(this.queueName, false, false, false, null);
-        } catch (IOException | TimeoutException e) {
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (TimeoutException e) {
             e.printStackTrace();
         }
     }

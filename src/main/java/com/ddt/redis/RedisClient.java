@@ -48,7 +48,7 @@ public class RedisClient {
         config.setMaxWaitMillis(10000);
         config.setTestOnBorrow(false);
 
-        List<JedisShardInfo> shards = new ArrayList<>();
+        List<JedisShardInfo> shards = new ArrayList<JedisShardInfo>();
         shards.add(new JedisShardInfo(host, port, "master"));
 
         shardedJedisPool = new ShardedJedisPool(config, shards);

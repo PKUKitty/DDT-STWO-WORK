@@ -133,11 +133,11 @@ public class DatabasesIndex {
     }
 
     private DatabasesIndex() {
-        dbIndexMap = new HashMap<>();
+        dbIndexMap = new HashMap<Databases, ArrayList<DatabasesIndexElement>>();
         //TODO config;
 
         DatabasesIndexElement element = new DatabasesIndexElement("cnd.infra.routeplan.tsk", "localhost", 6379, 0);
-        ArrayList<DatabasesIndexElement> lists = new ArrayList<>();
+        ArrayList<DatabasesIndexElement> lists = new ArrayList<DatabasesIndexElement>();
         lists.add(element);
         dbIndexMap.put(Databases.ACTIVE_PORT, lists);
         dbIndexMap.put(Databases.AGENCY, lists);

@@ -59,9 +59,9 @@ public class ManifestWriter {
         update = false;
         start = null;
         end = null;
-        manifestRequires = new ArrayList<>();
-        manifestInputDbs = new ArrayList<>();
-        manifestInputRawDatas = new ArrayList<>();
+        manifestRequires = new ArrayList<Element>();
+        manifestInputDbs = new ArrayList<Element>();
+        manifestInputRawDatas = new ArrayList<Element>();
     }
 
     public boolean open(final String filePath) {
