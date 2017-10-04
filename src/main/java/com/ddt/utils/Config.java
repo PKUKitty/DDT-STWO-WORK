@@ -1,4 +1,4 @@
-package main.java.com.ddt.utils;
+package com.ddt.utils;
 
 import java.io.File;
 
@@ -27,7 +27,7 @@ public class Config extends IniParser {
         if (!home.isEmpty()) {
             baseConfigDir = home;
         }
-        return baseConfigDir.concat("etc"); //TODO
+        return baseConfigDir.concat("/etc"); //TODO
     }
 
 
@@ -44,11 +44,4 @@ public class Config extends IniParser {
             }
         }
     }
-
-
-    public static void main(String[] args){
-        Config config = Config.getInstance();
-        System.out.println("HOME: " + System.getenv("HOME"));
-    }
-
 }

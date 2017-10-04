@@ -1,4 +1,4 @@
-package main.java.com.ddt.utils;
+package com.ddt.utils;
 
 import java.io.*;
 import java.util.HashMap;
