@@ -1,5 +1,7 @@
 package com.ddt.utils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 
@@ -164,6 +166,48 @@ public class DateTimeHandler {
         }
 
         return dateObject;
+    }
+
+    public static Date parseDateB(final String dateStr, final DateFormat dateFormat, final int dateType) {
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = null;
+        switch (dateFormat) {
+            case YYYYMMDD:
+                simpleDateFormat = new SimpleDateFormat(DateFormat.YYYYMMDD.getName());
+                break;
+            case YYMMDD:
+                simpleDateFormat = new SimpleDateFormat(DateFormat.YYMMDD.getName());
+                break;
+            case MMDDYY:
+                simpleDateFormat = new SimpleDateFormat(DateFormat.MMDDYY.getName());
+                break;
+            case MMDDYYYY:
+                simpleDateFormat = new SimpleDateFormat(DateFormat.MMDDYYYY.getName());
+                break;
+            case DDMMYY:
+                simpleDateFormat = new SimpleDateFormat(DateFormat.DDMMYY.getName());
+                break;
+            case DDMMYYYY:
+                simpleDateFormat = new SimpleDateFormat(DateFormat.DDMMYYYY.getName());
+                break;
+            case DDMONYY:
+                //TODO
+                simpleDateFormat = new SimpleDateFormat(DateFormat.DDMONYY.getName());
+                break;
+            case DDMONYYYY:
+                //TODO
+                simpleDateFormat = new SimpleDateFormat(DateFormat.DDMONYYYY.getName());
+                break;
+        }
+
+        try {
+            java.util.Date builtInDate = simpleDateFormat.parse(dateStr);
+            date.setDate(builtInDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return date;
     }
 
     public static Time parseTime(final String timeStr, final TimeFormat timeFormat) {

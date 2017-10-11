@@ -1,6 +1,7 @@
 package com.ddt.utils;
 
 import java.util.Arrays;
+import java.util.Calendar;
 
 public class Date {
 
@@ -38,6 +39,23 @@ public class Date {
         date.year = (short) year;
         return date;
     }
+
+    public Date(java.util.Date javaUtilDate) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(javaUtilDate);
+        this.day = (byte) calendar.get(Calendar.DAY_OF_MONTH);
+        this.month = (byte) (calendar.get(Calendar.MONTH) + 1);
+        this.year = (short) calendar.get(Calendar.YEAR);
+    }
+
+    public void setDate(java.util.Date javaUtilDate) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(javaUtilDate);
+        this.day = (byte) calendar.get(Calendar.DAY_OF_MONTH);
+        this.month = (byte) (calendar.get(Calendar.MONTH) + 1);
+        this.year = (short) calendar.get(Calendar.YEAR);
+    }
+
 
     public Date plusDays(final int days) {
         int[] month_date = Arrays.copyOf(MONTH_DATE, MONTH_SIZE);
