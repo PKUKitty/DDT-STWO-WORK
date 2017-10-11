@@ -1,13 +1,15 @@
 package com.ddt.utils;
 
+import java.util.Calendar;
+
 public class DateTime {
     public Date date;
 
     public Time time;
 
     public DateTime() {
-//        this.date = new Date();
-//        this.time = new Time();
+        this.date = new Date();
+        this.time = new Time();
     }
 
     public DateTime(Date date, Time time) {
@@ -20,6 +22,17 @@ public class DateTime {
         dateTime.date = date;
         dateTime.time = time;
         return dateTime;
+    }
+
+    public void setDateTime(java.util.Date javaUtilDate) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(javaUtilDate);
+        this.date.day = (byte) calendar.get(Calendar.DAY_OF_MONTH);
+        this.date.month = (byte) (calendar.get(Calendar.MONTH) + 1);
+        this.date.year = (short) calendar.get(Calendar.YEAR);
+        this.time.hour = (byte) calendar.get(Calendar.HOUR_OF_DAY);// 24h
+        this.time.minute = (byte) (calendar.get(Calendar.MINUTE));
+        this.time.second = (byte) calendar.get(Calendar.SECOND);
     }
 
     public DateTime add(int years, int months, int days) {
@@ -139,5 +152,10 @@ public class DateTime {
         result.date = date;
 
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return this.date.toString() + " " + this.time.toString();
     }
 }

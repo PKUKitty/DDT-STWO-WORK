@@ -169,6 +169,10 @@ public class DateTimeHandler {
     }
 
     public static Date parseDateB(final String dateStr, final DateFormat dateFormat, final int dateType) {
+        if (null == dateStr || dateStr.isEmpty()) {
+            return null;
+        }
+
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = null;
         switch (dateFormat) {
@@ -269,6 +273,40 @@ public class DateTimeHandler {
         return timeObject;
     }
 
+
+    public static Time parseTimeB(final String timeStr, final TimeFormat timeFormat) {
+        if (null == timeStr || timeStr.isEmpty()) {
+            return null;
+        }
+
+        Time time = new Time();
+        SimpleDateFormat simpleDateFormat = null;
+        switch (timeFormat) {
+            case HHMMSS:
+                simpleDateFormat = new SimpleDateFormat(TimeFormat.HHMMSS.getName());
+                break;
+            case HHMM:
+                simpleDateFormat = new SimpleDateFormat(TimeFormat.HHMM.getName());
+                break;
+            case HHMMSS_COLON:
+                simpleDateFormat = new SimpleDateFormat(TimeFormat.HHMMSS_COLON.getName());
+                break;
+            case HHMM_COLON:
+                simpleDateFormat = new SimpleDateFormat(TimeFormat.HHMM_COLON.getName());
+                break;
+        }
+
+        try {
+            java.util.Date builtInDate = simpleDateFormat.parse(timeStr);
+            time.setTime(builtInDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return time;
+    }
+
+
     public static DateTime parseDateTime(final String datetimeStr, final DateFormat dateFormat, final int dateType,
                                          final TimeFormat timeFormat) {
         //deal with date
@@ -313,6 +351,26 @@ public class DateTimeHandler {
     }
 
 
+    public static DateTime parseDateTimeB(final String datetimeStr, final DateFormat dateFormat, final int dateType, final TimeFormat timeFormat) {
+        //deal with date
+        if (null == datetimeStr || datetimeStr.isEmpty()) {
+            return null;
+        }
+        DateTime dateTime = new DateTime();
+
+        String datetimeFormat = dateFormat.getName() + timeFormat.getName();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(datetimeFormat);
+        try {
+            java.util.Date date = simpleDateFormat.parse(datetimeStr);
+            dateTime.setDateTime(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return dateTime;
+    }
+
+
     public static Date getSystemDate() {
         Date date = new Date();
         date.year = (short) Calendar.getInstance().get(Calendar.YEAR);
@@ -323,8 +381,8 @@ public class DateTimeHandler {
 
     public static Time getSystemTime() {
         Time time = new Time();
-        time.hour = (byte) Calendar.getInstance().get(Calendar.HOUR);
-        time.minute = (byte) (Calendar.getInstance().get(Calendar.MINUTE)/*start at 0*/ + 1);
+        time.hour = (byte) Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        time.minute = (byte) (Calendar.getInstance().get(Calendar.MINUTE));
         time.second = (byte) Calendar.getInstance().get(Calendar.SECOND);
         return time;
     }

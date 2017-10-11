@@ -68,7 +68,12 @@ public class DateTimeHandlerTest extends TestCase {
         String dateStr5 = "11102017";
         Date date5 = DateTimeHandler.parseDateB(dateStr5, DateFormat.DDMMYYYY, 1);
         Assert.assertEquals("2017-10-11", date5.toString());
-        //TODO DDMONYY, DDMONYYYY
+
+        //DDMONYY, DDMONYYYY
+        String dateStr6 = "11OCT2017";
+        Date date6 = DateTimeHandler.parseDateB(dateStr6, DateFormat.DDMONYYYY, 1);
+        Assert.assertEquals("2017-10-11", date6.toString());
+        System.out.println("date: " + date6.toString());
 
     }
 
@@ -82,11 +87,43 @@ public class DateTimeHandlerTest extends TestCase {
     }
 
     /**
+     * Method: parseTimeB(final String timeStr, final TimeFormat timeFormat)
+     */
+    public void testParseTimeB() throws Exception {
+        String timeStr = "16:39:21";
+        Time time = DateTimeHandler.parseTimeB(timeStr, TimeFormat.HHMMSS_COLON);
+        System.out.println("parse time B: " + time.toString());
+
+        String timeStr1 = "16:39";
+        Time time1 = DateTimeHandler.parseTimeB(timeStr1, TimeFormat.HHMM_COLON);
+        System.out.println("parse time B: " + time1.toString());
+
+        String timeStr3 = "163921";
+        Time time3 = DateTimeHandler.parseTimeB(timeStr3, TimeFormat.HHMMSS);
+        System.out.println("parse time B: " + time3.toString());
+
+        String timeStr4 = "1639";
+        Time time4 = DateTimeHandler.parseTimeB(timeStr4, TimeFormat.HHMM);
+        System.out.println("parse time B: " + time4.toString());
+
+    }
+
+    /**
      * Method: parseDateTime(final String datetimeStr, final DateFormat dateFormat, final int dateType, final TimeFormat timeFormat)
      */
     public void testParseDateTime() throws Exception {
         //TODO: Test goes here...
     }
+
+    /**
+     * Method: parseDateTimeB(final String datetimeStr, final DateFormat dateFormat, final int dateType, final TimeFormat timeFormat)
+     */
+    public void testParseDateTimeB() throws Exception {
+        String datetimeStr = "201710111639";
+        DateTime dt = DateTimeHandler.parseDateTimeB(datetimeStr,DateFormat.YYYYMMDD ,1,TimeFormat.HHMM);
+        System.out.println("parse date time B: " + dt.toString());
+    }
+
 
     /**
      * Method: getSystemDate()

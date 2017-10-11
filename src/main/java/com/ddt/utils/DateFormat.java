@@ -10,8 +10,8 @@ public enum DateFormat {
     MMDDYYYY(3, "MMddyyyy"),
     DDMMYY(4, "ddMMyy"),
     DDMMYYYY(5, "ddMMyyyy"),
-    DDMONYY(6, "ddWWyy"), // MON is week number in month? TODO
-    DDMONYYYY(7, "ddWWyyyy");
+    DDMONYY(6, "ddMMMyy"), // JAN
+    DDMONYYYY(7, "ddMMMyyyy");
 
     private final int seq;
     private final String name; // for java date simple format

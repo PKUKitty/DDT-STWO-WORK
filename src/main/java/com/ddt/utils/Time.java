@@ -1,5 +1,8 @@
 package com.ddt.utils;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class Time {
 
     public byte second;
@@ -26,6 +29,14 @@ public class Time {
         time.minute = (byte) minute;
         time.hour = (byte) hour;
         return time;
+    }
+
+    public void setTime(java.util.Date javaUtilDate) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(javaUtilDate);
+        this.hour = (byte) calendar.get(Calendar.HOUR_OF_DAY);// 24h
+        this.minute = (byte) (calendar.get(Calendar.MINUTE));
+        this.second = (byte) calendar.get(Calendar.SECOND);
     }
 
     public Time addHours(int hours) {
