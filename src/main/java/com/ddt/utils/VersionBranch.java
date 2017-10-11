@@ -19,19 +19,19 @@ public class VersionBranch {
      */
     private static final String basePath = System.getProperty("user.dir");
 
-    private static boolean isLinux = System.getProperty("os.name").startsWith("Linux");
+    private static boolean isWin = System.getProperty("os.name").toLowerCase().startsWith("win");
 
     private static String getVersionFilePath() {
-        if (isLinux) {
-            return basePath + "/" + versionFileName;
+        if (!isWin) {
+            return basePath + "/" + versionFileName; // linux and osx
         } else {
             return basePath + "\\" + versionFileName;
         }
     }
 
     private static String getBranchFilePath() {
-        if (isLinux) {
-            return basePath + "/" + branchFileName;
+        if (!isWin) {
+            return basePath + "/" + branchFileName; // linux and osx
         } else {
             return basePath + "\\" + branchFileName;
         }
