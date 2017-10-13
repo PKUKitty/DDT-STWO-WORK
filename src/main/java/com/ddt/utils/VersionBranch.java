@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /**
- * TODO fix it to singleton
+ * get version and branch info by file
  */
 public class VersionBranch {
 
@@ -20,6 +20,29 @@ public class VersionBranch {
     private static final String basePath = System.getProperty("user.dir");
 
     private static boolean isWin = System.getProperty("os.name").toLowerCase().startsWith("win");
+
+    private String versionFileContent = null;
+
+    private String branchFileContent = null;
+
+    private static volatile VersionBranch instance = null;
+
+    private VersionBranch() {
+
+    }
+
+    public static VersionBranch getInstance() {
+        if (instance == null) {
+            synchronized (VersionBranch.class) {
+                if (instance == null) {
+                    instance = new VersionBranch();
+                    instance.versionFileContent = readFile(getVersionFilePath());
+                    instance.branchFileContent = readFile(getBranchFilePath());
+                }
+            }
+        }
+        return instance;
+    }
 
     private static String getVersionFilePath() {
         if (!isWin) {
@@ -37,20 +60,20 @@ public class VersionBranch {
         }
     }
 
-    public static int getCodeVersion() {
-        return Integer.valueOf(readFile(getVersionFilePath()).substring(0, 1));
+    public int getCodeVersion() {
+        return Integer.valueOf(versionFileContent.substring(0, 1));
     }
 
-    public static int getSubVersion() {
-        return Integer.valueOf(readFile(getVersionFilePath()).substring(2, 2 + 1));
+    public int getSubVersion() {
+        return Integer.valueOf(versionFileContent.substring(2, 2 + 1));
     }
 
-    public static int getPatch() {
-        return Integer.valueOf(readFile(getVersionFilePath()).substring(4, 4 + 1));
+    public int getPatch() {
+        return Integer.valueOf(versionFileContent.substring(4, 4 + 1));
     }
 
-    public static String getBranch() {
-        return readFile(getBranchFilePath());
+    public String getBranch() {
+        return branchFileContent;
     }
 
     private static String readFile(String fileName) {

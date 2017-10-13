@@ -6,6 +6,9 @@ import junit.framework.TestSuite;
 import junit.framework.TestCase;
 import org.junit.Assert;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 /**
  * DateTimeHandler Tester.
  *
@@ -120,7 +123,7 @@ public class DateTimeHandlerTest extends TestCase {
      */
     public void testParseDateTimeB() throws Exception {
         String datetimeStr = "201710111639";
-        DateTime dt = DateTimeHandler.parseDateTimeB(datetimeStr,DateFormat.YYYYMMDD ,1,TimeFormat.HHMM);
+        DateTime dt = DateTimeHandler.parseDateTimeB(datetimeStr, DateFormat.YYYYMMDD, 1, TimeFormat.HHMM);
         System.out.println("parse date time B: " + dt.toString());
     }
 
@@ -129,78 +132,79 @@ public class DateTimeHandlerTest extends TestCase {
      * Method: getSystemDate()
      */
     public void testGetSystemDate() throws Exception {
-        //TODO: Test goes here...
+        System.out.println("get system date: " + DateTimeHandler.getSystemDate().toString());
     }
 
     /**
      * Method: getSystemTime()
      */
     public void testGetSystemTime() throws Exception {
-        //TODO: Test goes here...
+        System.out.println("get system time: " + DateTimeHandler.getSystemTime().toString());
     }
 
     /**
      * Method: getSystemDateTime()
      */
     public void testGetSystemDateTime() throws Exception {
-        //TODO: Test goes here...
+        System.out.println("get system date time: " + DateTimeHandler.getSystemDateTime().toString());
     }
 
     /**
      * Method: getSystemMilliseconds()
      */
     public void testGetSystemMilliseconds() throws Exception {
-        //TODO: Test goes here...
+        System.out.println("get system milli seconds: " + DateTimeHandler.getSystemMilliseconds());
     }
 
     /**
      * Method: getDayofWeek(final Date dateObject)
      */
     public void testGetDayofWeek() throws Exception {
-        //TODO: Test goes here...
+        Date date = new Date(12, 10, 2017);
+        Assert.assertEquals(4, DateTimeHandler.getDayofWeek(date));
     }
 
     /**
      * Method: getDayOfWeekChar(final Date dateObject)
      */
     public void testGetDayOfWeekChar() throws Exception {
-        //TODO: Test goes here...
+        Date date = new Date(12, 10, 2017);
+        Assert.assertEquals('4', DateTimeHandler.getDayofWeekChar(date));
     }
 
 
-    /**
-     * Method: checkDate(short year, byte month, byte day)
-     */
-    public void testCheckDate() throws Exception {
-        //TODO: Test goes here...
-/* 
-try { 
-   Method method = DateTimeHandler.getClass().getMethod("checkDate", short.class, byte.class, byte.class); 
-   method.setAccessible(true); 
-   method.invoke(<Object>, <Parameters>); 
-} catch(NoSuchMethodException e) { 
-} catch(IllegalAccessException e) { 
-} catch(InvocationTargetException e) { 
-} 
-*/
-    }
-
-    /**
-     * Method: checkTime(byte hour, byte minute, byte second)
-     */
-    public void testCheckTime() throws Exception {
-        //TODO: Test goes here...
-/* 
-try { 
-   Method method = DateTimeHandler.getClass().getMethod("checkTime", byte.class, byte.class, byte.class); 
-   method.setAccessible(true); 
-   method.invoke(<Object>, <Parameters>); 
-} catch(NoSuchMethodException e) { 
-} catch(IllegalAccessException e) { 
-} catch(InvocationTargetException e) { 
-} 
-*/
-    }
+//    /**
+//     * Method: checkDate(short year, byte month, byte day)
+//     */
+//    public void testCheckDate() throws Exception {
+//        Date date = new Date(12, 14, 2017);
+//
+//        try {
+//            Method method = DateTimeHandler.class.getDeclaredMethod("checkDate", short.class, byte.class, byte.class);
+//            method.setAccessible(true);
+//            Object returnValue = method.invoke(DateTimeHandler.class, date.getYear(), date.getMonth(), date.getDay());
+//            Assert.assertEquals(false, returnValue);
+//        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    /**
+//     * Method: checkTime(byte hour, byte minute, byte second)
+//     */
+//    public void testCheckTime() throws Exception {
+//        Time time = new Time(10, 11, 11);
+//
+//        try {
+//            Method method = DateTimeHandler.class.getDeclaredMethod("checkTime", byte.class, byte.class, byte.class);
+//            method.setAccessible(true);
+//            Object retVal = method.invoke(DateTimeHandler.class, time.getHour(), time.getMinute(), time.getSecond());
+//            Assert.assertEquals(true, retVal);
+//        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
 
 
     public static Test suite() {

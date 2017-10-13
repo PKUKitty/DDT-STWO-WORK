@@ -33,28 +33,28 @@ public class VersionBranchTest extends TestCase {
      * Method: getCodeVersion()
      */
     public void testGetCodeVersion() throws Exception {
-        Assert.assertEquals(3, VersionBranch.getCodeVersion());
+        Assert.assertEquals(3, VersionBranch.getInstance().getCodeVersion());
     }
 
     /**
      * Method: getSubVersion()
      */
     public void testGetSubVersion() throws Exception {
-        Assert.assertEquals(5, VersionBranch.getSubVersion());
+        Assert.assertEquals(5, VersionBranch.getInstance().getSubVersion());
     }
 
     /**
      * Method: getPatch()
      */
     public void testGetPatch() throws Exception {
-        Assert.assertEquals(2, VersionBranch.getPatch());
+        Assert.assertEquals(2, VersionBranch.getInstance().getPatch());
     }
 
     /**
      * Method: getBranch()
      */
     public void testGetBranch() throws Exception {
-        Assert.assertEquals("fix_selector", VersionBranch.getBranch());
+        Assert.assertEquals("fix_selector", VersionBranch.getInstance().getBranch());
     }
 
 
@@ -64,10 +64,10 @@ public class VersionBranchTest extends TestCase {
     public void testGetVersionFilePath() throws Exception {
 
         try {
-            Method method = VersionBranch.class.getMethod("getVersionFilePath");
+            Method method = VersionBranch.class.getDeclaredMethod("getVersionFilePath");
             method.setAccessible(true);
             Object invoke = method.invoke(null);
-            Assert.assertEquals("C:\\Users\\YuJun\\IdeaProjects\\Utils\\VERSION", invoke);
+            Assert.assertEquals("/home/yujun/IdeaProjects/DDT-STWO-WORK/VERSION", invoke);
         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
             e.printStackTrace();
         }

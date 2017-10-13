@@ -2,6 +2,8 @@ package com.ddt.utils;
 
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.List;
 
 public class Date {
 
@@ -11,13 +13,15 @@ public class Date {
 
     public static final int MONTH_SIZE = 12;
 
-    public static final int[] MONTH_DATE = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    private static final int[] PRIVATE_MONTH_DATE = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-    public byte day;
+    public static final List MONTH_DATE = Collections.unmodifiableList(Arrays.asList(PRIVATE_MONTH_DATE));
 
-    public byte month;
+    private byte day;
 
-    public short year;
+    private byte month;
+
+    private short year;
 
     public Date() {
         this.day = 0;
@@ -48,6 +52,12 @@ public class Date {
         this.year = (short) calendar.get(Calendar.YEAR);
     }
 
+    public void setDate(int day, int month, int year) {
+        this.day = (byte) day;
+        this.month = (byte) month;
+        this.year = (short) year;
+    }
+
     public void setDate(java.util.Date javaUtilDate) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(javaUtilDate);
@@ -56,9 +66,53 @@ public class Date {
         this.year = (short) calendar.get(Calendar.YEAR);
     }
 
+    public byte getDay() {
+        return day;
+    }
+
+    public void setDay(byte day) {
+        this.day = day;
+    }
+
+    public byte getMonth() {
+        return month;
+    }
+
+    public void setMonth(byte month) {
+        this.month = month;
+    }
+
+    public short getYear() {
+        return year;
+    }
+
+    public void setYear(short year) {
+        this.year = year;
+    }
+
+    public static boolean checkDate(Date date) {
+        return date != null && checkDate(date.getYear(), date.getMonth(), date.getDay());
+    }
+
+    public static boolean checkDate(short year, byte month, byte day) {
+        int[] month_date = Arrays.copyOf(PRIVATE_MONTH_DATE, MONTH_SIZE);
+
+        //check if the month is from 1 to 12
+        if (1 > month || 12 < month) {
+            return false;
+        }
+        //check if the day of a month is in its normal days
+        if (0 == year % 400 || (0 == year % 4 && 0 != year % 100)) {
+            month_date[1] = 29;
+        } else {
+            month_date[1] = 28;
+        }
+        return 1 <= day && month_date[month - 1] >= day;
+    }
+
 
     public Date plusDays(final int days) {
-        int[] month_date = Arrays.copyOf(MONTH_DATE, MONTH_SIZE);
+        int[] month_date = Arrays.copyOf(PRIVATE_MONTH_DATE, MONTH_SIZE);
         if (days < 0) {
             return this.minusDays(-1 * days);
         }
@@ -93,7 +147,7 @@ public class Date {
     }
 
     public Date minusDays(int days) {
-        int[] month_date = Arrays.copyOf(MONTH_DATE, MONTH_SIZE);
+        int[] month_date = Arrays.copyOf(PRIVATE_MONTH_DATE, MONTH_SIZE);
 
         if (days < 0) {
             Date result = this.plusDays(-1 * days);
@@ -132,7 +186,7 @@ public class Date {
     }
 
     public Date add(int years, int months, int days) {
-        int[] month_date = Arrays.copyOf(MONTH_DATE, MONTH_SIZE);
+        int[] month_date = Arrays.copyOf(PRIVATE_MONTH_DATE, MONTH_SIZE);
 
         Date result = this;
         //add years
@@ -165,7 +219,7 @@ public class Date {
     }
 
     public Date subtract(int years, int months, int days) {
-        int[] month_date = Arrays.copyOf(MONTH_DATE, MONTH_SIZE);
+        int[] month_date = Arrays.copyOf(PRIVATE_MONTH_DATE, MONTH_SIZE);
 
         Date result = this;
         //add years
@@ -200,7 +254,7 @@ public class Date {
     }
 
     public int calcDaysDifference(final Date dateObject) {
-        int[] month_date = Arrays.copyOf(MONTH_DATE, MONTH_SIZE);
+        int[] month_date = Arrays.copyOf(PRIVATE_MONTH_DATE, MONTH_SIZE);
 
         if (this == dateObject) {
             return 0;

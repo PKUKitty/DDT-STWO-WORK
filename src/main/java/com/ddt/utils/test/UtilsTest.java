@@ -86,10 +86,10 @@ public class UtilsTest {
 
     private static void testVersionBranch() {
         System.out.println("version file: " + VersionBranch.versionFileName);
-        System.out.println("code version: " + VersionBranch.getCodeVersion());
-        System.out.println("sub version: " + VersionBranch.getSubVersion());
-        System.out.println("patch: " + VersionBranch.getPatch());
-        System.out.println("branch: " + VersionBranch.getBranch());
+        System.out.println("code version: " + VersionBranch.getInstance().getCodeVersion());
+        System.out.println("sub version: " + VersionBranch.getInstance().getSubVersion());
+        System.out.println("patch: " + VersionBranch.getInstance().getPatch());
+        System.out.println("branch: " + VersionBranch.getInstance().getBranch());
         System.out.println("branch file: " + VersionBranch.branchFileName);
     }
 

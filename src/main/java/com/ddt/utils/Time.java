@@ -5,11 +5,11 @@ import java.util.Date;
 
 public class Time {
 
-    public byte second;
+    private byte second;
 
-    public byte minute;
+    private byte minute;
 
-    public byte hour;
+    private byte hour;
 
     public Time() {
         this.second = 0;
@@ -37,6 +37,45 @@ public class Time {
         this.hour = (byte) calendar.get(Calendar.HOUR_OF_DAY);// 24h
         this.minute = (byte) (calendar.get(Calendar.MINUTE));
         this.second = (byte) calendar.get(Calendar.SECOND);
+    }
+
+    public void setTime(int second, int minute, int hour) {
+        this.hour = (byte) hour;
+        this.minute = (byte) minute;
+        this.second = (byte) second;
+    }
+
+    public byte getSecond() {
+        return second;
+    }
+
+    public void setSecond(byte second) {
+        this.second = second;
+    }
+
+    public byte getMinute() {
+        return minute;
+    }
+
+    public void setMinute(byte minute) {
+        this.minute = minute;
+    }
+
+    public byte getHour() {
+        return hour;
+    }
+
+    public void setHour(byte hour) {
+        this.hour = hour;
+    }
+
+
+    public static boolean checkTime(Time time) {
+        return time != null && checkTime(time.getHour(), time.getMinute(), time.getSecond());
+    }
+
+    private static boolean checkTime(byte hour, byte minute, byte second) {
+        return hour <= 23 && hour >= 0 && minute <= 59 && minute >= 0 && second <= 59 && second >= 0;
     }
 
     public Time addHours(int hours) {

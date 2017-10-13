@@ -192,4 +192,9 @@ public abstract class SimpleThread implements Runnable {
     protected boolean afterStop() {
         return true;
     }
+
+    @Override
+    public String toString() {
+        return this.m_name;
+    }
 }

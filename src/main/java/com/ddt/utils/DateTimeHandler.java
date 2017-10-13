@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.List;
 
 import static com.ddt.utils.DateFormat.*;
 import static com.ddt.utils.TimeFormat.*;
@@ -13,7 +15,9 @@ public class DateTimeHandler {
     public final static short MAX_YEAR = 9999;
     public final static short MIN_YEAR = 1970;
 
-    public final static String[] MONTHS_NAME = {"JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
+    private final static String[] PRIVATE_MONTHS_NAME = {"JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
+
+    public static final List MONTHS_NAME = Collections.unmodifiableList(Arrays.asList(PRIVATE_MONTHS_NAME));
 
     public static Date parseDate(final String datetimeStr, final DateFormat dateFormat, final int dateType) {
 
@@ -30,16 +34,16 @@ public class DateTimeHandler {
                         && (datetimeStr.compareTo("999999") == 0 || datetimeStr.compareTo("000000") == 0))) {
             //date is discontinue date
             if (0 == dateType) {
-                dateObject.year = DateTimeHandler.MAX_YEAR;
-                dateObject.month = 99;
-                dateObject.day = 99;
+                dateObject.setYear(DateTimeHandler.MAX_YEAR);
+                dateObject.setMonth((byte) 99);
+                dateObject.setDay((byte) 99);
                 return dateObject;
             }
             //date is effective date
             else {
-                dateObject.year = DateTimeHandler.MIN_YEAR;
-                dateObject.month = 1;
-                dateObject.day = 1;
+                dateObject.setYear(DateTimeHandler.MIN_YEAR);
+                dateObject.setMonth((byte) 1);
+                dateObject.setDay((byte) 1);
                 return dateObject;
             }
         }
@@ -51,13 +55,13 @@ public class DateTimeHandler {
                 && (0 == datetimeStr.compareTo("        ")))
                 ) {
             if (0 == dateType) {
-                dateObject.year = DateTimeHandler.MAX_YEAR;
-                dateObject.month = 99;
-                dateObject.day = 99;
+                dateObject.setYear(DateTimeHandler.MAX_YEAR);
+                dateObject.setMonth((byte) 99);
+                dateObject.setDay((byte) 99);
             } else {
-                dateObject.year = DateTimeHandler.MIN_YEAR;
-                dateObject.month = 1;
-                dateObject.day = 1;
+                dateObject.setYear(DateTimeHandler.MIN_YEAR);
+                dateObject.setMonth((byte) 1);
+                dateObject.setDay((byte) 1);
             }
             return dateObject;
         }
@@ -96,8 +100,8 @@ public class DateTimeHandler {
             monthPtr = datetimeStr.substring(2, 5);
 
             for (int i = 0; i < 12; i++) {
-                if (monthPtr.equals(MONTHS_NAME[i])) {
-                    dateObject.month = (byte) (i + 1);
+                if (monthPtr.equals(PRIVATE_MONTHS_NAME[i])) {
+                    dateObject.setMonth((byte) (i + 1));
                     monthFlag = true;
                     break;
                 }
@@ -114,8 +118,8 @@ public class DateTimeHandler {
             monthPtr = datetimeStr.substring(2, 5);
 
             for (int i = 0; i < 12; i++) {
-                if (monthPtr.equals(MONTHS_NAME[i])) {
-                    dateObject.month = (byte) (i + 1);
+                if (monthPtr.equals(PRIVATE_MONTHS_NAME[i])) {
+                    dateObject.setMonth((byte) (i + 1));
                     monthFlag = true;
                     break;
                 }
@@ -143,25 +147,25 @@ public class DateTimeHandler {
         }
 
         if (StringUtils.isDigit(yearPtr)) {
-            dateObject.year = Short.valueOf(yearPtr);
+            dateObject.setYear(Short.valueOf(yearPtr));
         } else {
             return null;
         }
         if (monthFlag) {
             if (StringUtils.isDigit(monthPtr)) {
-                dateObject.month = Byte.valueOf(monthPtr);
+                dateObject.setMonth(Byte.valueOf(monthPtr));
             } else {
                 return null;
             }
         }
 
         if (StringUtils.isDigit(dayPtr)) {
-            dateObject.day = Byte.valueOf(dayPtr);
+            dateObject.setDay(Byte.valueOf(dayPtr));
         } else {
             return null;
         }
 
-        if (!checkDate(dateObject.year, dateObject.month, dateObject.day)) {
+        if (!Date.checkDate(dateObject)) {
             return null;
         }
 
@@ -195,11 +199,9 @@ public class DateTimeHandler {
                 simpleDateFormat = new SimpleDateFormat(DateFormat.DDMMYYYY.getName());
                 break;
             case DDMONYY:
-                //TODO
                 simpleDateFormat = new SimpleDateFormat(DateFormat.DDMONYY.getName());
                 break;
             case DDMONYYYY:
-                //TODO
                 simpleDateFormat = new SimpleDateFormat(DateFormat.DDMONYYYY.getName());
                 break;
         }
@@ -245,29 +247,29 @@ public class DateTimeHandler {
         Time timeObject = new Time();
 
         if (StringUtils.isDigit(hourPtr)) {
-            timeObject.hour = Byte.valueOf(hourPtr);
+            timeObject.setHour(Byte.valueOf(hourPtr));
         } else {
             return null;
         }
 
         if (StringUtils.isDigit(minutePtr)) {
-            timeObject.minute = Byte.valueOf(minutePtr);
+            timeObject.setMinute(Byte.valueOf(minutePtr));
         } else {
             return null;
         }
 
         if (StringUtils.isDigit(secondPtr)) {
-            timeObject.second = Byte.valueOf(secondPtr);
+            timeObject.setSecond(Byte.valueOf(secondPtr));
         } else {
             return null;
         }
 
         //converted the hour 24 to 0
-        if (timeObject.hour == 24) {
-            timeObject.hour = 0;
+        if (timeObject.getHour() == 24) {
+            timeObject.setHour((byte) 0);
         }
 
-        if (!checkTime(timeObject.hour, timeObject.minute, timeObject.second)) {
+        if (!Time.checkTime(timeObject)) {
             return null;
         }
         return timeObject;
@@ -326,25 +328,21 @@ public class DateTimeHandler {
 
         DateTime dateTime = new DateTime();
 
-        dateTime.date = parseDate(dateStr, dateFormat, dateType);
-        if (dateTime.date == null) {
+        dateTime.setDate(parseDate(dateStr, dateFormat, dateType));
+        if (dateTime.getDate() == null) {
             return null;
         }
 
-        if (9999 == dateTime.date.year) {
-            dateTime.time.hour = 23;
-            dateTime.time.minute = 59;
-            dateTime.time.second = 59;
+        if (9999 == dateTime.getDate().getYear()) {
+            dateTime.setTime(59, 59, 23);
             return dateTime;
-        } else if (1970 == dateTime.date.year) {
-            dateTime.time.hour = 0;
-            dateTime.time.minute = 0;
-            dateTime.time.second = 0;
+        } else if (1970 == dateTime.getDate().getYear()) {
+            dateTime.setTime(0, 0, 0);
             return dateTime;
         }
 
-        dateTime.time = parseTime(timeStr, timeFormat);
-        if (dateTime.time == null) {
+        dateTime.setTime(parseTime(timeStr, timeFormat));
+        if (dateTime.getTime() == null) {
             return null;
         }
         return dateTime;
@@ -373,36 +371,41 @@ public class DateTimeHandler {
 
     public static Date getSystemDate() {
         Date date = new Date();
-        date.year = (short) Calendar.getInstance().get(Calendar.YEAR);
-        date.month = (byte) (Calendar.getInstance().get(Calendar.MONTH)/*start at 0*/ + 1);
-        date.day = (byte) Calendar.getInstance().get(Calendar.DATE);
+        date.setYear((short) Calendar.getInstance().get(Calendar.YEAR));
+        date.setMonth((byte) (Calendar.getInstance().get(Calendar.MONTH)/*start at 0*/ + 1));
+        date.setDay((byte) Calendar.getInstance().get(Calendar.DATE));
         return date;
     }
 
     public static Time getSystemTime() {
         Time time = new Time();
-        time.hour = (byte) Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-        time.minute = (byte) (Calendar.getInstance().get(Calendar.MINUTE));
-        time.second = (byte) Calendar.getInstance().get(Calendar.SECOND);
+        time.setHour((byte) Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
+        time.setMinute((byte) (Calendar.getInstance().get(Calendar.MINUTE)));
+        time.setSecond((byte) Calendar.getInstance().get(Calendar.SECOND));
         return time;
     }
 
     public static DateTime getSystemDateTime() {
         DateTime dateTime = new DateTime();
-        dateTime.date = getSystemDate();
-        dateTime.time = getSystemTime();
+        dateTime.setDate(getSystemDate());
+        dateTime.setTime(getSystemTime());
         return dateTime;
     }
 
+    /**
+     * note: compare with  System.currentTimeMillis()
+     *
+     * @return 0-999 ms
+     */
     public static int getSystemMilliseconds() {
         return Calendar.getInstance().get(Calendar.MILLISECOND);
     }
 
     public static int getDayofWeek(final Date dateObject) {
         Date baseDate = new Date();
-        baseDate.year = DateTimeHandler.MIN_YEAR;
-        baseDate.month = 1;
-        baseDate.day = 1;
+        baseDate.setYear(DateTimeHandler.MIN_YEAR);
+        baseDate.setMonth((byte) 1);
+        baseDate.setDay((byte) 1);
 
         int days = dateObject.calcDaysDifference(baseDate);
 
@@ -415,7 +418,7 @@ public class DateTimeHandler {
         return 7;
     }
 
-    public static char getDayOfWeekChar(final Date dateObject) {
+    public static char getDayofWeekChar(final Date dateObject) {
         int week = getDayofWeek(dateObject);
         char weekday = ' ';
         switch (week) {
@@ -442,25 +445,5 @@ public class DateTimeHandler {
                 break;
         }
         return weekday;
-    }
-
-    private static boolean checkDate(short year, byte month, byte day) {
-        int[] month_date = Arrays.copyOf(Date.MONTH_DATE, Date.MONTH_SIZE);
-
-        //check if the month is from 1 to 12
-        if (1 > month || 12 < month) {
-            return false;
-        }
-        //check if the day of a month is in its normal days
-        if (0 == year % 400 || (0 == year % 4 && 0 != year % 100)) {
-            month_date[1] = 29;
-        } else {
-            month_date[1] = 28;
-        }
-        return 1 <= day && month_date[month - 1] >= day;
-    }
-
-    private static boolean checkTime(byte hour, byte minute, byte second) {
-        return hour <= 23 && hour >= 0 && minute <= 59 && minute >= 0 && second <= 59 && second >= 0;
     }
 }

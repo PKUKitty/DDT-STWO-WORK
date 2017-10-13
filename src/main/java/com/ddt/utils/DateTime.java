@@ -3,9 +3,9 @@ package com.ddt.utils;
 import java.util.Calendar;
 
 public class DateTime {
-    public Date date;
+    private Date date;
 
-    public Time time;
+    private Time time;
 
     public DateTime() {
         this.date = new Date();
@@ -15,6 +15,11 @@ public class DateTime {
     public DateTime(Date date, Time time) {
         this.date = date;
         this.time = time;
+    }
+
+    public DateTime(int day, int month, int year, int second, int minute, int hour) {
+        this.date.setDate(day, month, year);
+        this.time.setTime(second, minute, hour);
     }
 
     public static DateTime createDatetime(Date date, Time time) {
@@ -27,12 +32,32 @@ public class DateTime {
     public void setDateTime(java.util.Date javaUtilDate) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(javaUtilDate);
-        this.date.day = (byte) calendar.get(Calendar.DAY_OF_MONTH);
-        this.date.month = (byte) (calendar.get(Calendar.MONTH) + 1);
-        this.date.year = (short) calendar.get(Calendar.YEAR);
-        this.time.hour = (byte) calendar.get(Calendar.HOUR_OF_DAY);// 24h
-        this.time.minute = (byte) (calendar.get(Calendar.MINUTE));
-        this.time.second = (byte) calendar.get(Calendar.SECOND);
+        this.date.setDate((byte) calendar.get(Calendar.DAY_OF_MONTH), (byte) (calendar.get(Calendar.MONTH) + 1), (short) calendar.get(Calendar.YEAR));
+        this.time.setTime((byte) calendar.get(Calendar.HOUR_OF_DAY), (byte) (calendar.get(Calendar.MINUTE)), (byte) calendar.get(Calendar.SECOND));
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setDate(int day, int month, int year) {
+        this.date.setDate(day, month, year);
+    }
+
+    public Time getTime() {
+        return time;
+    }
+
+    public void setTime(Time time) {
+        this.time = time;
+    }
+
+    public void setTime(int second, int minute, int hour) {
+        this.time.setTime(second, minute, hour);
     }
 
     public DateTime add(int years, int months, int days) {
@@ -53,9 +78,7 @@ public class DateTime {
         int seconds = (hours * 60 + minutes) * 60;
 
         Time time1 = new Time();
-        time1.hour = 23;
-        time1.minute = 59;
-        time1.second = 59;
+        time1.setTime(59, 59, 23);
         Time time = result.time;
         int diff1 = time1.calcSecondsDifference(time);
         if (seconds <= diff1) {
@@ -66,9 +89,7 @@ public class DateTime {
         int nseconds = (seconds - diff1 - 1) % (24 * 60 * 60);
         Date date = (Date) result.date;
         result.date = date.plusDays(ndays);
-        time1.hour = 0;
-        time1.minute = 0;
-        time1.second = 0;
+        time1.setTime(0, 0, 0);
         result.time = time1.add(0, 0, nseconds);
 
         return result;
@@ -80,9 +101,7 @@ public class DateTime {
         int seconds = (hours * 60 + minutes) * 60;
 
         Time time1 = new Time();
-        time1.hour = 0;
-        time1.minute = 0;
-        time1.second = 0;
+        time1.setTime(0, 0, 0);
         Time time = result.time;
         int diff1 = time1.calcSecondsDifference(time);
         if (seconds <= diff1) {
@@ -93,9 +112,7 @@ public class DateTime {
         int nseconds = (seconds - diff1 - 1) % (24 * 60 * 60);
         Date date = result.date;
         result.date = date.minusDays(ndays);
-        time1.hour = 23;
-        time1.minute = 59;
-        time1.second = 59;
+        time1.setTime(59, 59, 23);
         result.time = time1.subtract(0, 0, nseconds);
 
         return result;
@@ -111,11 +128,11 @@ public class DateTime {
             small = datetimeObject;
         }
         int dayDiff = 0;
-        if (big.date.year != small.date.year || big.date.month != small.date.month || big.date.day != small.date.day) {
+        if (big.date.getYear() != small.date.getYear() || big.date.getMonth() != small.date.getMonth() || big.date.getDay() != small.date.getDay()) {
             dayDiff = big.calcDaysDifference(small);
         }
-        int bigSecond = big.time.hour * 60 * 60 + big.time.minute * 60 + big.time.second;
-        int smallSecond = small.time.hour * 60 * 60 + small.time.minute * 60 + small.time.second;
+        int bigSecond = big.time.getHour() * 60 * 60 + big.time.getMinute() * 60 + big.time.getSecond();
+        int smallSecond = small.time.getHour() * 60 * 60 + small.time.getMinute() * 60 + small.time.getSecond();
 
         return ((dayDiff * 60 * 60 * 24) + bigSecond) - smallSecond;
     }
