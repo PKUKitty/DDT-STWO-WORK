@@ -53,6 +53,7 @@ public class FileUtils {
             String regex = "\\\\";
             return path.split(regex);
         }
-        return null;
+        return new String[0];
+//        return null;
     }
 }
