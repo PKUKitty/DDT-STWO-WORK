@@ -5,6 +5,10 @@ import java.lang.management.RuntimeMXBean;
 
 public class Runtime {
 
+    private Runtime(){
+
+    }
+
     public static int getPid() {
         RuntimeMXBean runtime = ManagementFactory.getRuntimeMXBean();
         String name = runtime.getName();
