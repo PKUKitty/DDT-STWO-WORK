@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class ManifestWriter {
 
-    class Element {
+    static class Element {
         public String key;
 
         public String value;

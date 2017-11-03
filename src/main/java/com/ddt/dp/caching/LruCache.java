@@ -21,7 +21,7 @@ public class LruCache {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LruCache.class);
 
-    class Node {
+    static class Node {
         String userId;
         UserAccount userAccount;
         Node previous;

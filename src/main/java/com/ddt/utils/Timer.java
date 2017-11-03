@@ -1,8 +1,11 @@
 package com.ddt.utils;
 
+import java.util.concurrent.TimeUnit;
+
 public class Timer {
 
-    public final static long SECOND_IN_NS = 1000000000L; // 1 second in nanoseconds
+    //    public final static long SECOND_IN_NS = 1000000000L; // 1 second in nanoseconds
+    public final static long SECOND_IN_NS = TimeUnit.SECONDS.toNanos(1); // 1 second in nanoseconds
 
     private long m_start;
 
