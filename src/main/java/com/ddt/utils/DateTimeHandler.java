@@ -12,10 +12,15 @@ import static com.ddt.utils.TimeFormat.*;
 
 
 public class DateTimeHandler {
-    public final static short MAX_YEAR = 9999;
-    public final static short MIN_YEAR = 1970;
 
-    private final static String[] PRIVATE_MONTHS_NAME = {"JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
+    private DateTimeHandler(){
+
+    }
+
+    public static final short MAX_YEAR = 9999;
+    public static final short MIN_YEAR = 1970;
+
+    private static final String[] PRIVATE_MONTHS_NAME = {"JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
 
     public static final List MONTHS_NAME = Collections.unmodifiableList(Arrays.asList(PRIVATE_MONTHS_NAME));
 

@@ -4,6 +4,11 @@ import java.io.IOException;
 import java.nio.file.Paths;
 
 public class FileUtils {
+
+    private FileUtils(){
+
+    }
+
     /**
      * Return the absolute path to a file/directory/special
      * <p>
@@ -53,6 +58,7 @@ public class FileUtils {
             String regex = "\\\\";
             return path.split(regex);
         }
-        return null;
+        return new String[0];
+//        return null;
     }
 }

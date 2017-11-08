@@ -6,6 +6,10 @@ public class Serialize implements Serializable {
 
     private static final long serialVersionUID = -1351834486597493928L;
 
+    private Serialize(){
+
+    }
+
     /**
      * byte[] to object
      *

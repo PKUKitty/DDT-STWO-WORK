@@ -5,6 +5,11 @@ import java.util.Enumeration;
 
 public class NetUtil {
 
+    private NetUtil(){
+
+    }
+
+
     /**
      * get primary ip address. eg.172.27.48.15
      *

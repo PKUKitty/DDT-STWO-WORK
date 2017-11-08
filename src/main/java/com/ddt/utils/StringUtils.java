@@ -2,6 +2,9 @@ package com.ddt.utils;
 
 public class StringUtils {
 
+    private StringUtils(){
+
+    }
 
     public static boolean isDigit(final char[] arrays) {
         for (char array : arrays) {
