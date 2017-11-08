@@ -1,8 +1,12 @@
 package com.ddt.utils;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
-public class DateTime {
+public class DateTime implements Serializable, Cloneable, Comparable<DateTime> {
+
+    private static final long serialVersionUID = 6075613658945012534L;
+
     private Date date;
 
     private Time time;
@@ -174,5 +178,27 @@ public class DateTime {
     @Override
     public String toString() {
         return this.date.toString() + " " + this.time.toString();
+    }
+
+    /**
+     * compareTo interface
+     *
+     * @param other other datetime object
+     * @return 0-equal, >0 - greater, <0- less
+     */
+    @Override
+    public int compareTo(DateTime other) {
+        if (this.equals(other)) {
+            return 0;
+        } else if (this.greater(other)) {
+            return 3;
+        } else {
+            return -3;
+        }
+    }
+
+    @Override
+    protected DateTime clone() throws CloneNotSupportedException {
+        return (DateTime) super.clone();
     }
 }

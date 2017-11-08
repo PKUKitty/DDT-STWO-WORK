@@ -1,11 +1,12 @@
 package com.ddt.utils;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
-public class Date {
+public class Date implements Serializable, Cloneable, Comparable<Date> {
 
     public static final Date MIN_DATE = createDate((byte) 0, (byte) 0, (short) 0);
 
@@ -16,6 +17,8 @@ public class Date {
     private static final int[] PRIVATE_MONTH_DATE = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
     public static final List MONTH_DATE = Collections.unmodifiableList(Arrays.asList(PRIVATE_MONTH_DATE));
+
+    private static final long serialVersionUID = -1147599803355591109L;
 
     private byte day;
 
@@ -112,6 +115,13 @@ public class Date {
 
 
     public Date plusDays(final int days) {
+
+//        java.util.Date date = new java.util.Date(year, month, day);
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.setTime(date);
+//        calendar.add(Calendar.DATE, days);
+//        return new Date(calendar.getTime());
+
         int[] month_date = Arrays.copyOf(PRIVATE_MONTH_DATE, MONTH_SIZE);
         if (days < 0) {
             return this.minusDays(-1 * days);
@@ -147,6 +157,14 @@ public class Date {
     }
 
     public Date minusDays(int days) {
+
+//        java.util.Date date = new java.util.Date(year, month, day);
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.setTime(date);
+//        calendar.add(Calendar.DATE, -days);
+//        return new Date(calendar.getTime());
+
+
         int[] month_date = Arrays.copyOf(PRIVATE_MONTH_DATE, MONTH_SIZE);
 
         if (days < 0) {
@@ -186,6 +204,16 @@ public class Date {
     }
 
     public Date add(int years, int months, int days) {
+
+//        java.util.Date date = new java.util.Date(year, month, day);
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.setTime(date);
+//        calendar.add(Calendar.YEAR, years);
+//        calendar.add(Calendar.MONTH, months);
+//        calendar.add(Calendar.DATE, days);
+//        return new Date(calendar.getTime());
+
+
         int[] month_date = Arrays.copyOf(PRIVATE_MONTH_DATE, MONTH_SIZE);
 
         Date result = this;
@@ -219,6 +247,16 @@ public class Date {
     }
 
     public Date subtract(int years, int months, int days) {
+
+//        java.util.Date date = new java.util.Date(year, month, day);
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.setTime(date);
+//        calendar.add(Calendar.YEAR, -years);
+//        calendar.add(Calendar.MONTH, -months);
+//        calendar.add(Calendar.DATE, -days);
+//        return new Date(calendar.getTime());
+
+
         int[] month_date = Arrays.copyOf(PRIVATE_MONTH_DATE, MONTH_SIZE);
 
         Date result = this;
@@ -390,5 +428,28 @@ public class Date {
 
     public String toString() {
         return String.format("%d-%02d-%02d", year, month, day);
+    }
+
+    /**
+     * compareTo interface
+     *
+     * @param other other date object
+     * @return 0-equal, >0 - greater, < 0 - less
+     */
+    @Override
+    public int compareTo(Date other) {
+        if (this.equals(other)) {
+            return 0;
+        } else if (this.greater(other)) {
+            return 1;
+        } else {
+            return -1;
+        }
+    }
+
+
+    @Override
+    protected Date clone() throws CloneNotSupportedException {
+        return (Date) super.clone();
     }
 }

@@ -1,9 +1,12 @@
 package com.ddt.utils;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Time {
+public class Time implements Serializable, Cloneable, Comparable<Time> {
+
+    private static final long serialVersionUID = -3583829215349107196L;
 
     private byte second;
 
@@ -303,4 +306,25 @@ public class Time {
         return String.format("%02d:%02d:%02d", hour, minute, second);
     }
 
+    /**
+     * compareTo
+     *
+     * @param other other time object
+     * @return 0-equal, >0 - greater, < 0 - less
+     */
+    @Override
+    public int compareTo(Time other) {
+        if (this.equals(other)) {
+            return 0;
+        } else if (this.greater(other)) {
+            return 2;
+        } else {
+            return -2;
+        }
+    }
+
+    @Override
+    protected Time clone() throws CloneNotSupportedException {
+        return (Time) super.clone();
+    }
 }

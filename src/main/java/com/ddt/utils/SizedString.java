@@ -1,6 +1,10 @@
 package com.ddt.utils;
 
-public class SizedString {
+import java.io.Serializable;
+
+public class SizedString implements Serializable, Cloneable, Comparable<SizedString> {
+
+    private static final long serialVersionUID = -11667085865554262L;
 
     private int size;
 
@@ -254,5 +258,32 @@ public class SizedString {
         for (; i < size; i++) {
             this.value[i] = ' ';
         }
+    }
+
+    /**
+     * compareTo interface
+     *
+     * @param other other SizedString object
+     * @return 0, >0, <0
+     */
+    @Override
+    public int compareTo(SizedString other) {
+        if (this.equal(other)) {
+            return 0;
+        } else if (this.greater(other)) {
+            return 1;
+        } else {
+            return -1; // less
+        }
+    }
+
+    @Override
+    protected SizedString clone() throws CloneNotSupportedException {
+        return (SizedString) super.clone();
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode(); //TODO
     }
 }
